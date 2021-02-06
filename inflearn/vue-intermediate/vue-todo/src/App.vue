@@ -17,22 +17,22 @@ import TodoList from './components/TodoList'
 import TodoFooter from './components/TodoFooter'
 // 컴포넌트를 만들고 나서 할 일은, component를 등록하는 것이다.
 export default {
-  data: function() {
+  data() {
     return {
       todoItems: []
     }
   },
   methods: {
-    addOneItem: function(todoItem) {
-        var obj = {completed: false, item: todoItem}; // complete 여부를 추가함
+    addOneItem(todoItem) {
+        const obj = {completed: false, item: todoItem}; // complete 여부를 추가함
         localStorage.setItem(todoItem, JSON.stringify(obj));
         this.todoItems.push(obj);
     },
-    removeOneItem: function(todoItem, index) {
+    removeOneItem(todoItem, index) {
 			localStorage.removeItem(todoItem.item); // local storage에서 지운다고 해도 화면에는 반영 안된다
 			this.todoItems.splice(index, 1); // 화면에서 클릭한 index의 항목을 1개 지움
     },
-    toggleOneItem: function(todoItem, index) {
+    toggleOneItem(todoItem, index) {
       // todoItem.completed = !todoItem.completed; // anti-pattern why?
       // container(app.vue)에서 가지고 있던 데이터를 props로 내리고,
       // 그 data를 다시 받아 올려서 값을 manipulate 하고 있음
@@ -43,14 +43,14 @@ export default {
       localStorage.removeItem(todoItem.item);
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     },
-    clearAllItems: function() {
+    clearAllItems() {
       localStorage.clear();
       this.todoItems = []
     }
   },
-  created: function() {
+  created() {
     if (localStorage.length > 0) {
-      for (var i = 0; i < localStorage.length; i++) {
+      for (let i = 0; i < localStorage.length; i++) {
         if (localStorage.key(i) !== 'loglevel:webpack-dev-server'){
           // console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
           this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
@@ -61,10 +61,14 @@ export default {
   },
   components: {
     // 컴포넌트 태그명: 컴포넌트 내용
-    'TodoHeader': TodoHeader,
-    'TodoInput': TodoInput,
-    'TodoList': TodoList,
-    'TodoFooter': TodoFooter
+    // 'TodoHeader': TodoHeader,
+    // 'TodoInput': TodoInput,
+    // 'TodoList': TodoList,
+    // 'TodoFooter': TodoFooter
+    TodoHeader,
+    TodoInput,
+    TodoList,
+    TodoFooter // 향상된 객체 리터럴 추가
   }
 }
 </script>

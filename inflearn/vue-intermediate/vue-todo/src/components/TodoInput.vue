@@ -28,14 +28,14 @@
 import Modal from '../components/common/Modal'
 
 export default {
-  data: function() {
+  data() {
     return {
         newTodoItem: "",
         showModal: false
     }
   },
   methods: {
-    addTodo: function() {
+    addTodo() {
       // console.log(this.newTodoItem)
       if (this.newTodoItem !== ''){
         this.$emit('addTodoItem', this.newTodoItem)
@@ -45,12 +45,12 @@ export default {
         this.showModal = !this.showModal;
       }
     },
-    clearInput: function() {
+    clearInput() {
       this.newTodoItem = '';
     }
   },
   components: {
-    Modal: Modal
+    Modal
   }
 }
 </script>
