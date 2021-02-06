@@ -5,29 +5,53 @@
     <span class="addContainer" v-on:click="addTodo">
       <i class="fas fa-plus"></i>
     </span>
+
+    <Modal v-if="showModal" @close="showModal = false">
+      <!-- slot: 컴포넌트를 재정의할 수 있는 부분 -->
+      <h3 slot="header">
+        경고!
+        <i class="fas fa-times" @click="showModal = false"></i>
+      </h3>
+
+      <div slot="body">
+        할 일을 입력해주세요.
+      </div>
+
+      <span slot="footer">
+        copyright yj
+      </span>
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from '../components/common/Modal'
+
 export default {
   data: function() {
     return {
-        newTodoItem: ""
+        newTodoItem: "",
+        showModal: false
     }
   },
   methods: {
     addTodo: function() {
       // console.log(this.newTodoItem)
       if (this.newTodoItem !== ''){
-        var obj = {completed: false, item: this.newTodoItem}; // complete 여부를 추가함
-        localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+        this.$emit('addTodoItem', this.newTodoItem)
+        // this.$emit('이벤트명', 인자들,,, )
         this.clearInput();
+      } else {
+        this.showModal = !this.showModal;
       }
     },
     clearInput: function() {
       this.newTodoItem = '';
     }
   },
+  components: {
+    Modal: Modal
+  }
 }
 </script>
 
@@ -55,5 +79,9 @@ export default {
   .addBtn {
     color: white;
     vertical-align: middle;
+  }
+
+  .closeModalBtn {
+    color: #42b983;
   }
 </style>
