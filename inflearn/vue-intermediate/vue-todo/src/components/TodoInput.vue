@@ -38,8 +38,10 @@ export default {
     addTodo() {
       // console.log(this.newTodoItem)
       if (this.newTodoItem !== ''){
-        this.$emit('addTodoItem', this.newTodoItem)
-        // this.$emit('이벤트명', 인자들,,, )
+        // this.$emit('addTodoItem', this.newTodoItem)
+        // // this.$emit('이벤트명', 인자들,,, )
+        const text = this.newTodoItem.trim();
+        this.$store.commit('addOneItem', text);
         this.clearInput();
       } else {
         this.showModal = !this.showModal;
