@@ -1,25 +1,36 @@
 <template>
   <div>
-    <div v-for="item in ask">{{ item.title }}</div>
+    <!-- <div v-for="item in fetchedAsk">{{ item.title }}</div> -->
+    <p v-for="item in fetchedAsk">
+      <router-link v-bind:to="`item/${item.id}`">{{ item.title }}</router-link>
+      <!-- <a v-bind:href="item.url">{{ item.title }}</a> -->
+      <small>{{ item.time_ago }} | {{ item.user }}</small>
+      <!-- <router-link v-bind:to="`/user/${item.user}`">{{ item.user }}</router-link> -->
+    </p>
   </div>
 </template>
 
 <script>
-import { fetchAskList } from '../api/index.js'
+import { mapGetters, mapState } from 'vuex'
 
 export default {
-  data() {
-    return {
-      ask: []
-    }
+  computed: {
+    ...mapGetters([
+      'fetchedAsk'
+    ])
+
+    // #2
+    // ...mapState({
+    //   ask: state => state.ask
+    // })
+    
+    // # 1
+    // ask() {
+    //   return this.$store.state.ask;
+    // }
   },
   created() {
-    var vm = this; // 화살표 함수를 쓰지 않으면, this가 의미하는 것이 vm이 아니므로, 별도로 빼두어야 함
-    fetchAskList()
-      .then(function(response) {
-        vm.ask = response.data;
-      })
-      .catch(error => console.log(error))
+    this.$store.dispatch("FETCH_ASK");
   }
 }
 </script>
