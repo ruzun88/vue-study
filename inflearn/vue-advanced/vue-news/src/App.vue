@@ -22,6 +22,18 @@ body {
   padding: 0;
   margin: 0;
 }
+a {
+  color: #34495e;
+  /* 링크 밑줄 없애는 방법 */
+  text-decoration: none;
+}
+a:hover { /* 링크에 마우스를 올렸을 때 */
+  color: #42b883;
+  text-decoration: underline;
+}
+a.router-link-exact-active {
+  text-decoration: underline;
+}
 
 /* Router Transition */
 .page-enter-active, .page-leave-active {
