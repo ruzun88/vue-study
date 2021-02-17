@@ -1,12 +1,11 @@
 <template>
   <div>
-    <ul class="new-list">
+    <list-item></list-item>
+    <!-- <ul class="new-list">
       <li v-for="item in fetchedAsk" class="post">
-        <!-- 포인트 영역 -->
         <div class="points">
           {{ item.points }}
         </div>
-        <!-- 기타 정보 영역 -->
         <div>
           <p class="news-title">
             <router-link v-bind:to="`item/${item.id}`">
@@ -19,37 +18,41 @@
           </small>
         </div>
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+// import { mapGetters, mapState } from 'vuex'
+import ListItem from '../components/ListItem.vue'
 
 export default {
-  computed: {
-    ...mapGetters([
-      'fetchedAsk'
-    ])
-
-    // #2
-    // ...mapState({
-    //   ask: state => state.ask
-    // })
-    
-    // # 1
-    // ask() {
-    //   return this.$store.state.ask;
-    // }
+  components: {
+    ListItem,
   },
-  created() {
-    this.$store.dispatch("FETCH_ASK");
-  }
+  // computed: {
+  //   ...mapGetters([
+  //     'fetchedAsk'
+  //   ])
+
+  //   // #2
+  //   // ...mapState({
+  //   //   ask: state => state.ask
+  //   // })
+
+  //   // # 1
+  //   // ask() {
+  //   //   return this.$store.state.ask;
+  //   // }
+  // },
+  // created() {
+  //   this.$store.dispatch("FETCH_ASK");
+  // }
 }
 </script>
 
 <style scoped>
-.news-list {
+/* .news-list {
   margin: 0px;
   padding: 0px;
 }
@@ -75,5 +78,5 @@ export default {
 }
 .link-text {
   color: #828282;
-}
+} */
 </style>
