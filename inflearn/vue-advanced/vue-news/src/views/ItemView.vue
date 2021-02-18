@@ -6,22 +6,12 @@
     <section>
       <!-- 사용자 상세 정보 -->
       <user-profile :info="fetchedAskItem">
-        <div slot="username">{{ fetchedAskItem.user }}</div>
-        <template slot="time">{{ fetchedAskItem.time_ago }}</template>
+        <!-- <div slot="username">{{ fetchedAskItem.user }}</div> -->
+        <router-link slot="username" :to="`/user/${fetchedAskItem.user}`">
+          {{ fetchedAskItem.user }}
+        </router-link>
+        <template slot="time">{{ 'Posted ' + fetchedAskItem.time_ago }}</template>
       </user-profile>
-      <!-- <div class="user-container">
-        <div>
-          <i class="fas fa-user"></i>
-        </div>
-        <div class="user-description">
-          <router-link :to="`/user/${fetchedAskItem.user}`">
-            {{ fetchedAskItem.user }}
-          </router-link>
-          <div class="time">
-            {{ fetchedAskItem.time_ago }}
-          </div>
-        </div>
-      </div> -->
     </section>
     <section>
       <h2>{{ fetchedAskItem.title }}</h2>
