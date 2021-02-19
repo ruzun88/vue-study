@@ -15,7 +15,7 @@ export default {
   created() {
     bus.$emit('start:spinner');
     setTimeout(() => {
-      this.$store.dispatch("FETCH_NEWS")
+      this.$store.dispatch('FETCH_LIST', this.$route.name)
       .then(() => {
         console.log('fetched!');
         bus.$emit('end:spinner')
