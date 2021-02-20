@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-// import NewsView from '../views/NewsView.vue' // HOC 사용으로 컴포넌트가 필요없어짐
+import NewsView from '../views/NewsView.vue' // HOC 사용으로 컴포넌트가 필요없어짐
 // import AskView from '../views/AskView.vue'
 // import JobsView from '../views/JobsView.vue'
 import UserView from '../views/UserView.vue'
@@ -21,8 +21,8 @@ export const router = new VueRouter({
       path: '/news',
       name: 'news',
       // component: url 주소로 갔을 때, 표시 될 컴포넌트
-      // component: NewsView,
-      component: createListView('NewsView'),
+      component: NewsView,
+      // component: createListView('NewsView'),
     },
     {
       path: '/ask',
