@@ -6,6 +6,8 @@ import NewsView from '../views/NewsView.vue' // HOC 사용으로 컴포넌트가
 import UserView from '../views/UserView.vue'
 import ItemView from '../views/ItemView.vue'
 import createListView from '../views/CreateListView.js'
+import bus from '../utils/bus.js'
+import { store } from '../store/index.js'
 
 Vue.use(VueRouter);
 
@@ -23,18 +25,54 @@ export const router = new VueRouter({
       // component: url 주소로 갔을 때, 표시 될 컴포넌트
       component: NewsView,
       // component: createListView('NewsView'),
+      beforeEnter: (to, from, next) => { // 인증 등에서 많이 사용한다.
+        bus.$emit('start:spinner');
+        store.dispatch("FETCH_LIST", to.name)
+        .then(() => {
+          console.log('fetched!');
+          // bus.$emit('end:spinner');
+          next(); // 없으면 이동하지 않음
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
     },
     {
       path: '/ask',
       name: 'ask',
       // component: AskView,
       component: createListView('AskView'),
+      beforeEnter: (to, from, next) => { // 인증 등에서 많이 사용한다.
+        bus.$emit('start:spinner');
+        store.dispatch("FETCH_LIST", to.name)
+        .then(() => {
+          console.log('fetched!');
+          // bus.$emit('end:spinner');
+          next(); // 없으면 이동하지 않음
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
     },
     {
       path: '/jobs',
       name: 'jobs',
       // component: JobsView,
       component: createListView('JobsView'),
+      beforeEnter: (to, from, next) => { // 인증 등에서 많이 사용한다.
+        bus.$emit('start:spinner');
+        store.dispatch("FETCH_LIST", to.name)
+        .then(() => {
+          console.log('fetched!');
+          // bus.$emit('end:spinner');
+          next(); // 없으면 이동하지 않음
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
     },
     {
       path: '/user/:id', // 다이나믹 라우팅
