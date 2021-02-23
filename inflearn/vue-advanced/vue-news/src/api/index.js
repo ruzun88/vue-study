@@ -11,12 +11,21 @@ function fetchNewsList() {
   return axios.get(`${config.baseUrl}news/1.json`); // ES6 style template string
 }
 
-function fetchJobsList() {
-  return axios.get(`${config.baseUrl}jobs/1.json`);
+async function fetchJobsList() { // api call 단에서의 async 처리 방법 1
+  try {
+    return await axios.get(`${config.baseUrl}jobs/1.json`); // eslint에서 권장하는 one line statement
+  } catch (error) {
+    console.log(error)
+  }
 }
 
-function fetchAskList() {
-  return axios.get(`${config.baseUrl}ask/1.json`);
+async function fetchAskList() { // api call 단에서의 async 처리 방법 2
+  try {
+    const response = await axios.get(`${config.baseUrl}ask/1.json`); // coding convention 상의 response 처리. 한라인 더 길다.
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function fetchList(pageName) {

@@ -21,23 +21,38 @@ export default {
   //       commit("SET_ASK", data);
   //     })
   // },
-  FETCH_USER({commit}, name) {
-    return fetchUserInfo(name)
-      .then(({data}) => {
-        commit("SET_USER", data);
-      })
+
+  async FETCH_USER({commit}, name) {
+    try {
+      const response = await fetchUserInfo(name);
+      commit('SET_USER', response.data);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
   },
-  FETCH_ASK_ITEM({commit}, id) {
-    return fetchAskItem(id)
-      .then(({data}) => {
-        commit("SET_ASK_ITEM", data);
-      })
+
+  async FETCH_ASK_ITEM({commit}, id) {
+    const response = await fetchAskItem(id);
+    commit('SET_ASK_ITEM', response.data);
+    return response;
   },
-  FETCH_LIST({ commit }, pageName) {
-    return fetchList(pageName)
-      .then(({data}) => {
-        commit('SET_LIST', data);
-      })
-      .catch(error => console.log(error));
+  // // promise version
+  // FETCH_LIST({ commit }, pageName) {
+  //   return fetchList(pageName)
+  //     .then(({data}) => {
+  //       commit('SET_LIST', data);
+  //     })
+  //     .catch(error => console.log(error));
+  // },
+  // async version
+  async FETCH_LIST({ commit }, pageName) {
+    try {
+      const response = await fetchList(pageName);
+      commit('SET_LIST', response.data);
+      return response; // promise chaining을 위해 return을 해주어야 함
+    } catch (error) {
+      console.log(error)
+    }
   },
 }
