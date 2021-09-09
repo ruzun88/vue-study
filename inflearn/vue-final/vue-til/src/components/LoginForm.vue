@@ -5,34 +5,26 @@
       <input id="username" type="text" v-model="username" />
     </div>
     <div>
-      <label for="password">pw: </label>
+      <label for="password">password: </label>
       <input id="password" type="text" v-model="password" />
     </div>
-    <div>
-      <label for="nickname">nickname: </label>
-      <input id="nickname" type="text" v-model="nickname" />
-    </div>
-    <button
-      :disabled="!isUserNameValid || !password || !nickname"
-      type="submit"
-    >
-      회원 가입
+    <button :disabled="!isUserNameValid || !password" type="submit">
+      로그인
     </button>
     <p>{{ logMessage }}</p>
   </form>
 </template>
 
 <script>
-import { registerUser } from '@/api/index';
+import { loginUser } from '@/api/index';
 import { validateEmail } from '@/utils/validation';
 
 export default {
   data() {
     return {
-      // form values
+      // form value
       username: '',
       password: '',
-      nickname: '',
 
       // log
       logMessage: '',
@@ -45,22 +37,27 @@ export default {
   },
   methods: {
     async submitForm() {
-      console.log('폼 제출');
-      const userData = {
-        username: this.username,
-        password: this.password,
-        nickname: this.nickname,
-      };
-      const { data } = await registerUser(userData);
-      console.log(data.nickname);
-
-      this.logMessage = `${data.username}님이 가입되었습니다.`;
-      this.initForm();
+      try {
+        // biz logic
+        const userData = {
+          username: this.username,
+          password: this.password,
+        };
+        const { data } = await loginUser(userData);
+        // console.log(data.user.username);
+        this.logMessage = `${data.user.username}님, 환영합니다!`;
+        // this.initForm();
+      } catch (error) {
+        // 에러 핸들링 코드
+        // console.log(error);
+        this.logMessage = error.response.data;
+      } finally {
+        this.initForm();
+      }
     },
     initForm() {
       this.username = '';
       this.password = '';
-      this.nickname = '';
     },
   },
 };
