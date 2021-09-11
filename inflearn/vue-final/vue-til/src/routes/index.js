@@ -21,6 +21,10 @@ export default new VueRouter({
       component: () => import('@/views/SignupPage'),
     },
     {
+      path: '/main',
+      component: () => import('@/views/MainPage'),
+    },
+    {
       path: '*',
       component: () => import('@/views/NotFoundPage'),
     },
