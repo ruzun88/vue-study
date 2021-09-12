@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { setInterceptors } from './common/interceptors';
 
+// 초기화
 function createInstance() {
   const instance = axios.create({
     // baseURL: 'http://localhost:3000',
@@ -12,16 +13,21 @@ function createInstance() {
 
 const instance = createInstance();
 
+// 유저 등록 api
 function registerUser(userData) {
-  console.log('hello');
   // const url = 'http://localhost:3000/signup';
   // return axios.post(url, userData);
   return instance.post('signup', userData);
 }
 
+// 로그인 api
 function loginUser(userData) {
-  console.log('hi');
   return instance.post('login', userData);
 }
 
-export { registerUser, loginUser };
+// 학습 노트 데이터 조회 api
+function fetchPosts() {
+  return instance.get('posts');
+}
+
+export { registerUser, loginUser, fetchPosts };

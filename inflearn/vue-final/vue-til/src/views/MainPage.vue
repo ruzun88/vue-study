@@ -7,7 +7,18 @@
 </template>
 
 <script>
-export default {};
+import { fetchPosts } from '@/api/index';
+export default {
+  mounted() {
+    this.fetchdata();
+  },
+  methods: {
+    async fetchdata() {
+      const response = await fetchPosts();
+      console.log(response);
+    },
+  },
+};
 </script>
 
 <style></style>

@@ -1,5 +1,6 @@
 import store from '@/store/index';
 
+// 설정
 export function setInterceptors(instance) {
   // Add a request interceptor
   instance.interceptors.request.use(
