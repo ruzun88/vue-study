@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import { loginUser } from '@/api/index';
 import { validateEmail } from '@/utils/validation';
 
 export default {
@@ -56,12 +55,10 @@ export default {
           username: this.username,
           password: this.password,
         };
-        console.log(1);
-        const { data } = await loginUser(userData);
-        // console.log(data.user.username);
-        console.log(2);
-        this.$store.commit('setUsername', data.user.username);
-        this.$store.commit('setToken', data.token);
+        await this.$store.dispatch('LOGIN', userData);
+        // await를 넣지 않으면 발생하는 문제점
+        // login 인증 처리가 모두 되지 않은 상태에서 main으로 넘어가면, auth 에러 발생
+
         this.$router.push('/main');
         // this.logMessage = `${data.user.username}님, 환영합니다!`;
         // this.initForm();

@@ -16,6 +16,9 @@
         </li> -->
       </ul>
     </div>
+    <router-link to="/add" class="create-button">
+      <i class="ion-md-add"></i>
+    </router-link>
   </div>
 </template>
 
