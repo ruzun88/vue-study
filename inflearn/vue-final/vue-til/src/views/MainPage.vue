@@ -8,6 +8,7 @@
           v-for="postItem in postItems"
           :key="postItem._id"
           :postItem="postItem"
+          @refresh="fetchData"
         ></PostListItem>
         <!-- <li v-for="postItem in postItems" :key="postItem._id">
           <div class="post-title">{{ postItem.title }}</div>
@@ -23,7 +24,7 @@
 </template>
 
 <script>
-import { fetchPosts } from '@/api/index';
+import { fetchPosts } from '@/api/posts';
 import PostListItem from '@/components/posts/PostListItem.vue';
 import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
 export default {
